@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checklist TP1 - Diseño Web</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --light: #ecf0f1;
+            --success: #27ae60;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f6fa;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            color: var(--secondary);
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 5px;
+            margin-top: 25px;
+        }
+
+        .section {
+            background: var(--light);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .check-item {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+            padding: 12px;
+            background: white;
+            border-radius: 5px;
+            transition: transform 0.2s;
+        }
+
+        .check-item:hover {
+            transform: translateX(5px);
+            box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+        }
+
+        input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-right: 15px;
+            accent-color: var(--success);
+        }
+
+        label {
+            flex-grow: 1;
+            color: var(--primary);
+        }
+
+        .completed {
+            background: #e8f6ef;
+            opacity: 0.8;
+        }
+
+        button {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: opacity 0.3s;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>✅ Checklist TP1 - Diseño Web</h1>
+        
+        <div class="section">
+            <h2>📄 Instrucciones de Uso</h2>
+            <p>1. Marca los items completados<br>
+            2. Los estados se guardan automáticamente<br>
+            3. Usa el botón para reiniciar<br>
+            4. Entrega usando el link en la planilla</p>
+        </div>
+
+        <div id="checklist"></div>
+        
+        <div style="text-align: center;">
+            <button onclick="resetChecks()">♻️ Reiniciar Todo</button>
+        </div>
+    </div>
+
+    <script>
+        // Datos del checklist
+        const checklistItems = [
+            {id: 'html1', text: 'Encabezado con título principal'},
+            {id: 'html2', text: 'Sección de navegación con 3 enlaces'},
+            {id: 'html3', text: 'Sección principal con 2 artículos'},
+            {id: 'html4', text: 'Lista con al menos 3 ítems'},
+            {id: 'html5', text: 'Imagen relacionada al contenido'},
+            {id: 'html6', text: 'Pie de página con créditos'},
+            {id: 'css1', text: 'Archivo CSS externo vinculado'},
+            {id: 'css2', text: 'Estilos para todas las secciones'},
+            {id: 'css3', text: 'Cambios en colores/fuentes/márgenes'},
+            {id: 'css4', text: 'Efecto hover implementado'},
+            {id: 'js1', text: 'Función JavaScript interactiva'},
+            {id: 'js2', text: 'Evento vinculado (ej: onclick)'},
+            {id: 'js3', text: 'Archivo JS externo vinculado'},
+            {id: 'js4', text: 'Funcionalidad sin errores'},
+            {id: 'est1', text: 'Estructura de proyecto correcta'},
+            {id: 'git1', text: 'Repositorio GitHub creado'},
+            {id: 'git2', text: 'Código subido al repositorio'},
+            {id: 'git3', text: 'GitHub Pages configurado'},
+            {id: 'ent1', text: 'README.md con descripción'},
+            {id: 'ent2', text: 'Explicación de función JS'},
+            {id: 'ent3', text: 'Link enviado a planilla'}
+        ];
+
+        // Cargar checklist
+        function loadChecklist() {
+            const container = document.getElementById('checklist');
+            
+            checklistItems.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'check-item';
+                div.innerHTML = `
+                    <input type="checkbox" id="${item.id}">
+                    <label for="${item.id}">${item.text}</label>
+                `;
+                
+                // Cargar estado guardado
+                const savedState = localStorage.getItem(item.id);
+                if(savedState === 'true') {
+                    div.querySelector('input').checked = true;
+                    div.classList.add('completed');
+                }
+                
+                // Event listener para guardar estado
+                div.querySelector('input').addEventListener('change', function() {
+                    localStorage.setItem(item.id, this.checked);
+                    div.classList.toggle('completed', this.checked);
+                });
+                
+                container.appendChild(div);
+            });
+        }
+
+        // Reiniciar todos los checks
+        function resetChecks() {
+            if(confirm('¿Seguro que quieres reiniciar todo el progreso?')) {
+                checklistItems.forEach(item => {
+                    localStorage.removeItem(item.id);
+                    document.getElementById(item.id).checked = false;
+                    document.getElementById(item.id).parentElement.classList.remove('completed');
+                });
+            }
+        }
+
+        // Inicializar
+        document.addEventListener('DOMContentLoaded', loadChecklist);
+    </script>
+</body>
+</html>
