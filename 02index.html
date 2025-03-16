@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clase 02</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #f0f0f0;
+        }
+
+        .hero {
+            width: 70%;
+            height: 70%;
+            border-radius: 15px;
+            display: flex;
+            overflow: hidden;
+            background: linear-gradient(45deg, #6a11cb, #2575fc);
+            color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .left {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .right {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .right ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .right li {
+            margin: 10px 0;
+        }
+
+        .right a {
+            text-decoration: none;
+            padding: 10px 20px;
+            background: white;
+            color: #2575fc;
+            border-radius: 5px;
+            font-weight: bold;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .right a:hover {
+            background: #2575fc;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <div class="left">
+            Clase 02
+        </div>
+        <div class="right">
+            <ul>
+                <li><a href="./02markmap-promts.html" target="_blank">¿Qué es un Prompt? - Mapa conceptual</a></li>
+                <li><a href="./02markdown-promts.html" target="_blank">¿Qué es un Prompt? - Texto</a></li>
+                <li><a href="./02markmap-esquemas.html" target="_blank">Esquema de Prompts - Mapa concecptual</a></li>
+                <li><a href="./02markdown-esquemas.html" target="_blank">Esquema de Prompts - Texto</a></li>
+                <li><a href="contenido5.html" target="_blank">Contenido 5</a></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
