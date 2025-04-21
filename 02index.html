@@ -3,85 +3,240 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clase 02</title>
+    <title>Introducción a la IA - Clase 02</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <style>
-        body {
+        :root {
+            --primary: #6a85b6;
+            --secondary: #4b6cb7;
+            --accent: #3a4a6d;
+            --accent-light: #5d7ebd;
+            --text-light: #ffffff;
+            --text-dark: #333333;
+            --text-secondary: #555;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        * {
             margin: 0;
-            font-family: Arial, sans-serif;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            background: #f0f0f0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #e6e9f0 0%, #eef1f5 100%);
+            padding: 20px;
+            color: var(--text-dark);
         }
 
         .hero {
-            width: 70%;
-            height: 70%;
-            border-radius: 15px;
+            width: 100%;
+            max-width: 1200px;
+            border-radius: 20px;
             display: flex;
             overflow: hidden;
-            background: linear-gradient(45deg, #6a11cb, #2575fc);
-            color: white;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: var(--text-light);
+            box-shadow: var(--shadow);
+            flex-direction: column;
         }
 
-        .left {
-            flex: 1;
+        .header {
+            padding: 2rem;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(5px);
+        }
+
+        .header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .content {
             display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 2rem;
-            font-weight: bold;
+            flex-direction: column;
+            padding: 2rem;
         }
 
-        .right {
-            flex: 1;
+        .menu {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            padding: 1rem;
+        }
+
+        .menu-item {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
             display: flex;
-            justify-content: center;
-            align-items: center;
+            flex-direction: column;
+            gap: 0.8rem;
         }
 
-        .right ul {
-            list-style: none;
-            padding: 0;
+        .menu-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
         }
 
-        .right li {
-            margin: 10px 0;
+        .menu-title {
+            font-weight: 700;
+            color: var(--accent);
+            font-size: 1.2rem;
+            margin-bottom: 0.3rem;
         }
 
-        .right a {
+        .main-link {
             text-decoration: none;
-            padding: 10px 20px;
-            background: white;
-            color: #2575fc;
-            border-radius: 5px;
-            font-weight: bold;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-            transition: background 0.3s, color 0.3s;
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 1.1rem;
+            display: block;
+            padding: 0.8rem 1rem;
+            background: rgba(106, 133, 182, 0.1);
+            border-radius: 8px;
+            transition: all 0.3s ease;
         }
 
-        .right a:hover {
-            background: #2575fc;
-            color: white;
+        .main-link:hover {
+            background: rgba(106, 133, 182, 0.2);
+            color: var(--accent);
+        }
+
+        .text-version {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            padding: 0.5rem 0.8rem;
+            border-radius: 6px;
+            background: rgba(0, 0, 0, 0.03);
+            transition: all 0.2s ease;
+            display: inline-block;
+            margin-top: 0.5rem;
+        }
+
+        .text-version:hover {
+            background: rgba(0, 0, 0, 0.08);
+            color: var(--accent-light);
+        }
+
+        .description {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.4;
+            margin: 0.5rem 0;
+        }
+
+        /* Media Queries */
+        @media (min-width: 768px) {
+            .hero {
+                flex-direction: row;
+                min-height: 70vh;
+            }
+            
+            .header {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                padding: 2rem;
+            }
+            
+            .content {
+                flex: 1.5;
+                padding: 3rem;
+            }
+            
+            .header h1 {
+                font-size: 3rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .header h1 {
+                font-size: 3.5rem;
+            }
+            
+            .menu {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .header p {
+                font-size: 1rem;
+            }
+            
+            .menu {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
     <div class="hero">
-        <div class="left">
-            Clase 02
+        <div class="header">
+            <h1>Introducción a la IA</h1>
+            <p>Explora los fundamentos de la Inteligencia Artificial</p>
         </div>
-        <div class="right">
-            <ul>
-                <li><a href="./02QueeslaIA.html" target="_blank">¿Qué es la IA?</a></li>
-                <li><a href="./02markmap-promts.html" target="_blank">¿Qué es un Prompt? - Mapa conceptual</a></li>
-                <li><a href="./02markdown-promts.html" target="_blank">¿Qué es un Prompt? - Texto</a></li>
-                <li><a href="./02markmap-esquemas.html" target="_blank">Esquema de Prompts - Mapa conceptual</a></li>
-                <li><a href="./02markdown-esquemas.html" target="_blank">Esquema de Prompts - Texto</a></li>
+        <div class="content">
+            <div class="menu">
+                <div class="menu-item">
+                    <div class="menu-title">Evolución Histórica</div>
+                    <a href="./02QueeslaIA.html" class="main-link" target="_blank">Orígenes de la IA</a>
+                    <div class="description">Desde Turing hasta los sistemas actuales</div>
+                </div>
                 
-            </ul>
+                <div class="menu-item">
+                    <div class="menu-title">Aplicaciones Actuales</div>
+                    <a href="./conceptosbasicosIA.html" class="main-link" target="_blank">IA en la vida cotidiana</a>
+                    <div class="description">Cómo la IA transforma nuestro día a día</div>
+                </div>
+                              
+                <div class="menu-item">
+                    <div class="menu-title">Interacción con IA</div>
+                    <a href="./02markmap-promts.html" class="main-link" target="_blank">El arte de los prompts</a>
+                    <div class="description">Cómo comunicarse efectivamente con IA</div>
+                    <a href="./02markdown-promts.html" class="text-version" target="_blank">Guía detallada</a>
+                </div>
+             
+                <div class="menu-item">
+                    <div class="menu-title">Técnicas Avanzadas</div>
+                    <a href="./02markmap-esquemas.html" class="main-link" target="_blank">Patrones de prompts</a>
+                    <div class="description">Estructuras para obtener mejores resultados</div>
+                    <a href="./02markdown-esquemas.html" class="text-version" target="_blank">Ejemplos prácticos</a>
+                </div>
+                
+                <div class="menu-item">
+                    <div class="menu-title">Comparativa</div>
+                    <a href="./Chatbotsde IAogoogle.html" class="main-link" target="_blank">Búsquedas vs. IA conversacional</a>
+                    <div class="description">Cuándo usar cada herramienta</div>
+                    
+                </div>
+            </div>
         </div>
     </div>
 </body>
