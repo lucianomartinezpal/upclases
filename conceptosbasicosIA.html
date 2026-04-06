@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -18,27 +18,35 @@
 <li><a href="#🎯-analogía-inicial-⚡">🎯 Analogía inicial ⚡</a></li>
 </ul>
 </li>
-<li><a href="#📌no-olvidarme-de-contar-anécdota">📌No olvidarme de contar anécdota</a></li>
 <li><a href="#conceptos-básicos-de-la-ia">Conceptos Básicos de la IA</a>
 <ul>
 <li><a href="#🤖-¿está-programada-la-ia">🤖 ¿Está programada la IA?</a></li>
 <li><a href="#️⃣-pregunta-💡">1️⃣ Pregunta 💡</a></li>
 <li><a href="#️⃣-pensemos-¿la-ia-es-predecible-🎲">2️⃣ Pensemos: ¿La IA es predecible? 🎲</a></li>
-<li><a href="#️⃣-los-motores-de-la-ia-moderna-⚙️">3️⃣ Los motores de la IA moderna ⚙️</a></li>
-<li><a href="#️⃣-el-caso-de-los-llms-chatgpt--amigos-🗣️">4️⃣ El caso de los LLMs (ChatGPT & amigos) 🗣️</a></li>
-<li><a href="#️⃣-herramientas-de-ia-🛠️">4️⃣ Herramientas de IA 🛠️</a></li>
-<li><a href="#🔑-conclusiones-clave">🔑 Conclusiones clave</a></li>
-<li><a href="#🧠💡conceptos-clave-de-ia---de-inputoutput-a-agi">🧠💡Conceptos Clave de IA - De Input/Output a AGI</a></li>
+<li><a href="#️⃣-los-motores-de-la-ia-moderna-⚙️">3️⃣ Los motores de la IA moderna ⚙️</a>
+<ul>
+<li><a href="#🧩-qué-es-un-modelo-de-ia">🧩 ¿Qué es un modelo de IA?</a></li>
+<li><a href="#📱-qué-es-una-aplicación-de-ia">📱 ¿Qué es una aplicación de IA?</a></li>
+</ul>
+</li>
+<li><a href="#️⃣-el-caso-de-los-llms-chatgpt--amigos-🗣️">4️⃣ El caso de los LLMs (ChatGPT & amigos) 🗣️</a>
+<ul>
+<li><a href="#🔤-qué-es-un-token-en-modelos-de-lenguaje">🔤 ¿Qué es un token?</a></li>
+</ul>
+</li>
+<li><a href="#️⃣-herramientas-de-ia-🛠️">5️⃣ Herramientas de IA y familias de tareas 🛠️</a></li>
+<li><a href="#🔑-conclusiones-clave">🔑 Conclusiones clave</a>
+<ul>
+<li><a href="#⚠️-límites-y-responsabilidad">⚠️ Límites y responsabilidad</a></li>
+</ul>
+</li>
+<li><a href="#🧠💡conceptos-clave-de-ia---inputoutput-y-uso-crítico">🧠💡 Conceptos clave: input/output y uso crítico</a></li>
 <li><a href="#️⃣-pregunta-central-¿cómo-funciona-realmente-la-ia">1️⃣ Pregunta Central: ¿Cómo funciona realmente la IA?</a></li>
 <li><a href="#️⃣-el-gran-error-confundir-output-con-trabajo-propio">2️⃣ El Gran Error: Confundir Output con Trabajo Propio</a></li>
 <li><a href="#️⃣-conceptos-técnicos-desglosados">3️⃣ Conceptos Técnicos Desglosados</a></li>
 </ul>
 </li>
-<li><a href="#evolución-de-chatbots-a-agentes-autónomos">Evolución: De Chatbots a Agentes Autónomos</a>
-<ul>
-<li><a href="#️⃣-escenarios-futuros-¿realidad-o-ciencia-ficción">5️⃣ Escenarios Futuros (¿Realidad o Ciencia Ficción?)</a></li>
-</ul>
-</li>
+<li><a href="#apendice-proxima-clase">📎 Apéndice (próxima clase)</a></li>
 <li><a href="#🤖-meme-de-cierre">🤖 MEME DE CIERRE</a></li>
 </ul>
 
@@ -53,22 +61,21 @@ Sabemos <strong>de qué se trata</strong>, pero dentro hay <strong>múltiples di
 <li>
 <p><strong>Ejemplo deporte</strong>:</p>
 <ul>
-<li>🏃♂️ <em>Atletismo</em> → <strong>Análisis predictivo</strong> (ML)</li>
-<li>🏊♀️ <em>Natación</em> → <strong>Visión artificial</strong> (DL)</li>
-<li>🤸♂️ <em>Gimnasia</em> → <strong>Generación de contenido</strong> (NLP)</li>
+<li>🏃♂️ <em>Atletismo</em> → <strong>Análisis predictivo</strong> (una disciplina dentro del deporte)</li>
+<li>🏊♀️ <em>Natación</em> → <strong>Visión artificial</strong> (otra especialización)</li>
+<li>🤸♂️ <em>Gimnasia</em> → <strong>Generación de texto o imágenes</strong> (otra especialización)</li>
 </ul>
 </li>
 <li>
 <p><strong>Ejemplo IA</strong>:</p>
 <ul>
-<li>🧠 <em>Machine Learning</em> → <strong>“El cardio”</strong> de los datos</li>
-<li>🧠➡️🧠 <em>Deep Learning</em> → <strong>“La musculatura”</strong> de redes neuronales</li>
-<li>🤖 <em>Chatbots</em> → <strong>“El entrenador”</strong> automatizado</li>
+<li>🧩 <em>Modelo de IA</em> → el <strong>“motor entrenado”</strong> (ej.: el cerebro detrás de GPT o de un reconocedor de imágenes)</li>
+<li>📱 <em>Aplicación de IA</em> → el <strong>“producto que usás”</strong> (app, web o servicio que envuelve uno o más modelos)</li>
+<li>🤖 <em>Chatbots</em> → <strong>“El entrenador”</strong> automatizado (suelen combinar modelo + interfaz)</li>
 </ul>
 </li>
 </ul>
 <p>💡 <em>Reflexión</em>: Ambos conceptos son <strong>paraguas</strong> que agrupan <strong>herramientas especializadas</strong> para distintos objetivos 🎯.</p>
-<h1 id="📌no-olvidarme-de-contar-anécdota">📌No olvidarme de contar anécdota</h1>
 <h1 id="conceptos-básicos-de-la-ia">Conceptos Básicos de la IA</h1>
 <h2 id="🤖-¿está-programada-la-ia">🤖 ¿Está programada la IA?</h2>
 <h2 id="️⃣-pregunta-💡">1️⃣ Pregunta 💡</h2>
@@ -107,6 +114,22 @@ Ambos (calculadora y diccionario) son <strong>sistemas cerrados</strong> sin cap
 ✔ Está <strong>entrenada</strong> con millones de datos<br>
 ✔ Usa probabilidades, no reglas fijas</p>
 <h2 id="️⃣-los-motores-de-la-ia-moderna-⚙️">3️⃣ Los motores de la IA moderna ⚙️</h2>
+<p><em>Mapa de esta clase (nivel base):</em> primero definimos <strong>modelo</strong> y <strong>aplicación</strong>; más abajo, en <strong>Herramientas</strong>, veremos las mismas ideas ordenadas por <strong>tipo de tarea</strong> (lenguaje, imagen, etc.) y por <strong>formato de uso</strong> (chat simple vs agente). No es material nuevo contradiciendo lo anterior, es el mismo mapa con otros cortes.</p>
+<h3 id="🧩-qué-es-un-modelo-de-ia">🧩 <strong>¿Qué es un modelo de IA?</strong></h3>
+<ul>
+<li><strong>Definición:</strong> Es el resultado del <strong>entrenamiento</strong> con datos: un sistema matemático que, ante una entrada (texto, imagen, audio…), produce una salida (respuesta, etiqueta, imagen nueva, etc.).</li>
+<li><strong>No es la “app” en sí:</strong> El modelo suele vivir en servidores; vos interactuás con él a través de una <strong>aplicación</strong> (web, app móvil, API).</li>
+<li><strong>Ejemplos conocidos:</strong> familias de modelos de lenguaje (tipo GPT), modelos de imagen (tipo los que generan o editan fotos), modelos de voz (transcripción o síntesis).</li>
+<li><strong>Metáfora rápida:</strong> el modelo es el <strong>motor</strong>; la aplicación es el <strong>auto completo</strong> (volante, tablero, experiencia de uso).</li>
+</ul>
+<h3 id="📱-qué-es-una-aplicación-de-ia">📱 <strong>¿Qué es una aplicación de IA?</strong></h3>
+<ul>
+<li><strong>Definición:</strong> Cualquier <strong>producto o servicio</strong> que usa modelos de IA para resolver un problema concreto: mejorar un chat de soporte, recomendar canciones, moderar contenido, asistir en redacción, etc.</li>
+<li><strong>Qué incluye:</strong> interfaz (lo que ves y tocás), reglas de negocio, y por debajo uno o varios modelos llamados según la tarea.</li>
+<li><strong>Ejemplos en el día a día:</strong> asistentes de escritura, filtros inteligentes en fotos, recomendaciones en streaming o comercio electrónico, diagnóstico asistido en salud (siempre con supervisión humana donde corresponda), detección de fraudes en finanzas.</li>
+<li><strong>Idea clave para la clase:</strong> cuando decís “uso la IA”, muchas veces estás usando una <strong>aplicación</strong> que por dentro <strong>usa uno o más modelos</strong>.</li>
+</ul>
+<div style="display:none" aria-hidden="true">
 <h3 id="🧠-machine-learning-ml">🧠 <strong>Machine Learning (ML)</strong></h3>
 <ul>
 <li>
@@ -156,34 +179,12 @@ Ambos (calculadora y diccionario) son <strong>sistemas cerrados</strong> sin cap
 <p><strong>Ámbitos de uso:</strong> salud, finanzas, seguridad, servicios al cliente, investigación científica</p>
 </li>
 </ul>
-<h3 id="🎓-carreras-y-áreas-de-estudio-en-argentina">🎓 <strong>Carreras y áreas de estudio en Argentina</strong></h3>
-<ul>
-<li>
-<p><strong>Carreras relacionadas:</strong></p>
-<ul>
-<li>Ingeniería en Inteligencia Artificial (Universidad de Palermo)</li>
-<li>Licenciatura en Inteligencia Artificial (Universidad de Palermo)</li>
-<li>Ingeniería en Informática con especialización en IA</li>
-<li>Máster en Inteligencia Artificial (programas online como UNIR)</li>
-</ul>
-</li>
-<li>
-<p><strong>Áreas académicas:</strong></p>
-<ul>
-<li>Ciencias Exactas y Naturales (Matemática, Estadística, Computación)</li>
-<li>Ingeniería (Informática, Electrónica, Sistemas)</li>
-<li>Ciencia de Datos y Análisis de Big Data</li>
-</ul>
-</li>
-<li>
-<p>Estas carreras forman profesionales con sólidos conocimientos en matemáticas, programación, algoritmos, estadística y aprendizaje automático, preparándolos para innovar y aplicar IA en múltiples sectores industriales y comerciales.</p>
-</li>
-</ul>
+</div>
 <h2 id="️⃣-el-caso-de-los-llms-chatgpt--amigos-🗣️">4️⃣ El caso de los LLMs (ChatGPT &amp; amigos) 🗣️</h2>
 <h3 id="¿qué-son">¿Qué son?</h3>
 <ul>
-<li><strong>Large Language Models</strong> = Redes neuronales gigantes</li>
-<li>Entrenadas con <strong>todo Internet</strong> (libros, artículos, código, etc.)</li>
+<li><strong>Large Language Models</strong> = modelos de lenguaje muy grandes (muchas “capas” y parámetros).</li>
+<li>Entrenados con <strong>grandes corpus de texto</strong> de muchas fuentes (web, libros, artículos, código, etc.), según cada desarrollador.</li>
 </ul>
 <h3 id="¿cómo-funcionan">¿Cómo funcionan?</h3>
 <ul>
@@ -202,7 +203,14 @@ Ambos (calculadora y diccionario) son <strong>sistemas cerrados</strong> sin cap
 </ul>
 </li>
 </ul>
-<h2 id="️⃣-herramientas-de-ia-🛠️">4️⃣ Herramientas de IA 🛠️</h2>
+<h3 id="🔤-qué-es-un-token-en-modelos-de-lenguaje">🔤 <strong>¿Qué es un token? (modelos de lenguaje)</strong></h3>
+<ul>
+<li><strong>Definición práctica:</strong> un <strong>token</strong> es la <strong>unidad mínima</strong> en la que el modelo “corta” el texto para leerlo y generarlo. <strong>No siempre es una palabra:</strong> puede ser una sílaba, un trozo de palabra o un signo; en inglés a veces una palabra corta entra en un solo token, y palabras largas o raras se parten en varios.</li>
+<li><strong>Por qué importa:</strong> los límites de “cuánto texto cabe” en el chat (ventana de <strong>contexto</strong>) y muchas veces el <strong>precio</strong> de uso de APIs se miden en <strong>tokens</strong> (entrada + salida), no en caracteres.</li>
+<li><strong>Cómo genera el modelo:</strong> en la práctica va armando la respuesta <strong>token a token</strong> (prediciendo el siguiente trozo), aunque vos veas la salida como palabras fluidas en pantalla.</li>
+</ul>
+<h2 id="️⃣-herramientas-de-ia-🛠️">5️⃣ Herramientas de IA y familias de tareas 🛠️</h2>
+<p><em>Cómo leer esta sección:</em> ya vimos <strong>modelo</strong> vs <strong>aplicación</strong>. Acá las agrupamos por <strong>qué problema resuelven</strong> (NLP, visión, predicción…) y por <strong>cómo las usás</strong> (chat vs agente). Los sectores (comercio, salud, finanzas…) son los mismos que en <strong>¿Qué es una aplicación de IA?</strong>; no hace falta memorizar dos listas distintas.</p>
 <h3 id="❓-¿qué-son-las-herramientas-de-ia">❓ ¿Qué son las herramientas de IA?</h3>
 <p><strong>→ Sistemas que emulan inteligencia humana mediante algoritmos.</strong></p>
 <ul>
@@ -212,8 +220,8 @@ Ambos (calculadora y diccionario) son <strong>sistemas cerrados</strong> sin cap
 <li>
 <p><strong>Funcionan con</strong>:</p>
 <ul>
-<li>Algoritmos de <strong>aprendizaje automático (ML)</strong></li>
-<li><strong>Redes neuronales</strong> (especialmente en deep learning)</li>
+<li><strong>Modelos entrenados</strong> con grandes volúmenes de datos</li>
+<li><strong>Inferencia</strong>: el modelo aplica lo aprendido a cada consulta nueva</li>
 </ul>
 </li>
 <li>
@@ -257,17 +265,11 @@ Ambos (calculadora y diccionario) son <strong>sistemas cerrados</strong> sin cap
 </ul>
 </li>
 </ul>
-<h3 id="🌍-aplicaciones-clave">🌍 Aplicaciones clave</h3>
-<ul>
-<li><strong>Comercio</strong>: Recomendaciones personalizadas (Spotify, Amazon)</li>
-<li><strong>Salud</strong>: Diagnóstico asistido por imágenes</li>
-<li><strong>Finanzas</strong>: Detección de transacciones fraudulentas</li>
-<li><strong>Manufactura</strong>: Inspección de calidad con visión artificial</li>
-<li><strong>Marketing</strong>: Segmentación avanzada de audiencias</li>
-</ul>
-<p>💡 <em>Dato clave</em>: Herramientas como <strong>ChatGPT</strong> o <strong>DALL-E</strong> usan <strong>redes neuronales profundas</strong> para generar contenido original[5][7].</p>
-<h3 id="🤖-tipos-de-herramientas-ia">🤖 Tipos de Herramientas IA</h3>
-<p>Las herramientas de IA son sistemas diseñados para imitar habilidades cognitivas humanas, como el aprendizaje, el razonamiento y la resolución de problemas. Estas herramientas utilizan algoritmos y modelos de datos para procesar información y realizar tareas específicas.</p>
+<h3 id="🌍-aplicaciones-clave">🌍 ¿Dónde se usa? (repaso rápido)</h3>
+<p>Mismos <strong>sectores</strong> que en el bloque de aplicaciones: comercio (recomendaciones), salud (asistencia con imágenes), finanzas (fraude), manufactura (calidad por visión), marketing (audiencias). Acá el foco no es la industria, sino el <strong>tipo de herramienta</strong> que sigue.</p>
+<p>💡 <em>Dato clave</em>: Herramientas como <strong>ChatGPT</strong> o <strong>DALL-E</strong> son <strong>aplicaciones</strong> que se apoyan en <strong>modelos de IA</strong> entrenados para generar contenido original[5][7].</p>
+<h3 id="🤖-tipos-de-herramientas-ia">🤖 Chatbots vs agentes (cómo se presenta el producto)</h3>
+<p><strong>Chatbots</strong> y <strong>agentes</strong> son formas de <strong>aplicación</strong>: encapsulan uno o más <strong>modelos</strong> y definen cuántos pasos puede dar el sistema sin que lo pides cada vez.</p>
 <ol>
 <li>
 <p><strong>Chatbots</strong> (GPT, Gemini):</p>
@@ -311,8 +313,14 @@ Ambos (calculadora y diccionario) son <strong>sistemas cerrados</strong> sin cap
 </tr>
 </tbody>
 </table><p><strong>Insight:</strong> La magia está en que <strong>genera</strong>, no solo reproduce. Por ejemplo, puede escribir un poema original en el estilo de Borges.</p>
-<p><strong>Consideraciones éticas:</strong> ¿Cómo podemos usar la IA de forma responsable? ¿Qué sesgos debemos evitar?</p>
-<h2 id="🧠💡conceptos-clave-de-ia---de-inputoutput-a-agi">🧠💡Conceptos Clave de IA - De Input/Output a AGI</h2>
+<h3 id="⚠️-límites-y-responsabilidad">⚠️ Límites y responsabilidad (uso en la vida real)</h3>
+<ul>
+<li><strong>Alucinaciones y seguridad en lo que leés:</strong> la respuesta puede sonar muy segura y estar <strong>equivocada</strong> o inventada. Conviene <strong>verificar</strong> con fuentes, especialmente en tareas del ejercicio de prompts y en cualquier dato factual o numérico.</li>
+<li><strong>Datos y privacidad:</strong> evitá mandar por chat <strong>contraseñas, DNI, datos de salud o de clientes</strong> (sobre todo en servicios públicos o gratuitos). Revisá la política del producto: a veces podés pedir <strong>no usar tu conversación para entrenar</strong> el modelo (depende de la app y del plan).</li>
+<li><strong>Sesgos:</strong> el modelo <strong>refleja patrones de los datos</strong> con los que fue entrenado; puede reproducir estereotipos o omisiones. Por eso el criterio humano sigue siendo central (conecta con las <strong>consideraciones éticas</strong> de abajo).</li>
+</ul>
+<p><strong>Consideraciones éticas:</strong> ¿Cómo usar la IA de forma <strong>responsable</strong>? ¿Qué <strong>sesgos</strong> debemos tener en cuenta (en datos y en resultados)? ¿Quién es responsable cuando el output se usa en un trabajo o en una decisión con impacto real? Estas preguntas cierran el círculo con el bloque de <strong>límites</strong> de arriba.</p>
+<h2 id="🧠💡conceptos-clave-de-ia---inputoutput-y-uso-crítico">🧠💡 Conceptos clave de IA: input/output y uso crítico</h2>
 <h2 id="️⃣-pregunta-central-¿cómo-funciona-realmente-la-ia">1️⃣ Pregunta Central: ¿Cómo funciona realmente la IA?</h2>
 <h3 id="❓-¿qué-diferencia-un-sistema-programado-de-uno-con-ia">❓ ¿Qué diferencia un sistema programado de uno con IA?</h3>
 <p><strong>→ Input/Output vs Aprendizaje</strong></p>
@@ -358,6 +366,7 @@ Comparar outputs con:</p>
 <li>"Dame una landing page las siguientes secciones, un header fijo que ocupe el 100% de la pantalla y un titulo atractivo, luego un hero section con un h1, luego un parrafo y un boton CTA, el hero debe ocupar el 100% del ancho y 70% del alto, luego 3 secciones con un titulo centrado, luego un parrafo y otro CTA, cada seccion debe ocupar el 100% del alto y ancho , tener fondos degradados de distintos colores, por ultimo un footer igual al header pero con un h3 con la fecha actual, debes usar google fonts. "</li>
 </ol>
 <h2 id="️⃣-conceptos-técnicos-desglosados">3️⃣ Conceptos Técnicos Desglosados</h2>
+<div style="display:none" aria-hidden="true">
 <h3 id="🔧-machine-learning-vs-deep-learning">🔧 Machine Learning vs Deep Learning</h3>
 
 <table>
@@ -383,16 +392,19 @@ Comparar outputs con:</p>
 <td>1000+</td>
 </tr>
 </tbody>
-</table><h3 id="🧩-modelos-de-ia-lo-más-importante">🧩 Modelos de IA (Lo Más Importante)</h3>
+</table></div>
+<h3 id="🧩-modelos-de-ia-lo-más-importante">🧩 Modelos de IA (Lo Más Importante)</h3>
 <ul>
-<li><strong>Definición:</strong> “IA ya entrenada” (como GPT-4)</li>
-<li><strong>Característica:</strong> Parámetros congelados</li>
-<li><strong>Metáfora:</strong> Motor de auto vs Auto completo</li>
+<li><strong>Definición:</strong> “IA ya entrenada” (como GPT-4): el paquete de conocimiento y habilidades aprendidas hasta la fecha del entrenamiento.</li>
+<li><strong>Característica:</strong> Sus <strong>parámetros</strong> quedan fijos hasta un nuevo entrenamiento o actualización; vos usás el modelo “tal como está”.</li>
+<li><strong>Aplicación vs modelo (repaso):</strong> La <strong>aplicación</strong> es lo que abrís en el navegador o el celular; el <strong>modelo</strong> es lo que responde cuando enviás el mensaje.</li>
+<li><strong>Metáfora:</strong> Motor de auto vs auto completo.</li>
 </ul>
-<p><strong>Dato curioso:</strong><br>
-🤳 <em>Modelos personales</em>: Puedes entrenar mini-IA con tus fotos para generar imágenes de ti mismo</p>
-<h1 id="evolución-de-chatbots-a-agentes-autónomos">Evolución: De Chatbots a Agentes Autónomos</h1>
-<h2 id="️⃣-escenarios-futuros-¿realidad-o-ciencia-ficción">5️⃣ Escenarios Futuros (¿Realidad o Ciencia Ficción?)</h2>
+<details id="apendice-proxima-clase">
+<summary><strong>📎 Apéndice — próxima clase</strong> (opcional, extendible): evolución chatbots → agentes, AGI, superinteligencia, singularidad, Constitutional AI y enlaces.</summary>
+<div>
+<h2 id="evolución-de-chatbots-a-agentes-autónomos">Evolución: De chatbots a agentes autónomos</h2>
+<h2 id="️⃣-escenarios-futuros-¿realidad-o-ciencia-ficción">Escenarios futuros (¿realidad o ciencia ficción?)</h2>
 <h3 id="📌-3-conceptos-clave">📌 3 Conceptos Clave:</h3>
 <h3 id="🧠-agi-inteligencia-general-artificial">1. 🧠 <strong>AGI (Inteligencia General Artificial)</strong></h3>
 <p>La AGI representa el punto donde las máquinas igualarán la flexibilidad cognitiva humana. A diferencia de la IA especializada actual (como ChatGPT o los sistemas de reconocimiento de imágenes), una AGI podría:</p>
@@ -453,6 +465,8 @@ Comparar outputs con:</p>
 <li><strong>Constitución de Claude</strong>: <a href="https://www.anthropic.com/news/claudes-constitution">Claude’s Constitution</a>.</li>
 </ul>
 <p>Este enfoque representa un <strong>cambio paradigmático</strong> en la gobernanza de la IA, incorporando procesos democráticos en el desarrollo tecnológico.</p>
+</div>
+</details>
 <h1 id="🤖-meme-de-cierre">🤖 MEME DE CIERRE</h1>
 <p><a href="https://imgflip.com/i/9rf60g"><img src="https://i.imgflip.com/9rf60g.jpg" title="made at imgflip.com"></a></p>
 <p>Referencias Simplificadas</p>
