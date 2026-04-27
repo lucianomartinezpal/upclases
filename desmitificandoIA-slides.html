@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desmitificando la IA · Diapositivas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0b0f1a;
+            --bg-soft: #111726;
+            --surface: rgba(255, 255, 255, 0.04);
+            --surface-strong: rgba(255, 255, 255, 0.08);
+            --border: rgba(255, 255, 255, 0.08);
+            --border-strong: rgba(255, 255, 255, 0.18);
+            --text: #e8ecf3;
+            --text-soft: #a8b0c2;
+            --text-dim: #6b7388;
+            --accent: #7c5cff;
+            --accent-2: #5ad1ff;
+            --accent-glow: rgba(124, 92, 255, 0.45);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.5;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: -20% -10% auto auto;
+            width: 60vmax;
+            height: 60vmax;
+            background: radial-gradient(circle at center, var(--accent-glow), transparent 60%);
+            filter: blur(60px);
+            opacity: 0.55;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            inset: auto auto -20% -10%;
+            width: 50vmax;
+            height: 50vmax;
+            background: radial-gradient(circle at center, rgba(90, 209, 255, 0.25), transparent 60%);
+            filter: blur(60px);
+            opacity: 0.5;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .deck-wrapper {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .deck {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.55s cubic-bezier(0.7, 0, 0.3, 1);
+        }
+
+        .slide {
+            flex: 0 0 100%;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 56px clamp(40px, 8vw, 120px);
+            position: relative;
+        }
+
+        .slide-inner {
+            width: 100%;
+            max-width: 1100px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-soft);
+            padding: 8px 14px;
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            background: var(--surface);
+            width: fit-content;
+        }
+
+        .eyebrow .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent-2);
+            box-shadow: 0 0 12px var(--accent-2);
+        }
+
+        h1.title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: clamp(2.6rem, 6vw, 5.5rem);
+            line-height: 1.05;
+            letter-spacing: -0.02em;
+        }
+
+        h1.title .grad {
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        h2.heading {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: clamp(2rem, 4.4vw, 3.6rem);
+            line-height: 1.1;
+            letter-spacing: -0.015em;
+        }
+
+        h3.sub {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            font-size: clamp(1.1rem, 1.6vw, 1.4rem);
+            color: var(--text-soft);
+        }
+
+        p.lede {
+            font-size: clamp(1.05rem, 1.6vw, 1.4rem);
+            color: var(--text-soft);
+            max-width: 60ch;
+        }
+
+        ul.bullets,
+        ol.bullets {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            font-size: clamp(1rem, 1.5vw, 1.3rem);
+        }
+
+        ul.bullets li,
+        ol.bullets li {
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+            color: var(--text-soft);
+        }
+
+        ul.bullets li::before {
+            content: "";
+            width: 8px;
+            height: 8px;
+            margin-top: 0.7em;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            flex: 0 0 8px;
+            box-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        ul.bullets li strong,
+        ol.bullets li strong {
+            color: var(--text);
+        }
+
+        ol.bullets {
+            counter-reset: ol;
+        }
+
+        ol.bullets li {
+            counter-increment: ol;
+        }
+
+        ol.bullets li::before {
+            content: counter(ol, decimal-leading-zero);
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            font-size: 0.9em;
+            color: var(--accent-2);
+            min-width: 2.4em;
+        }
+
+        .section-num {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: clamp(5rem, 14vw, 11rem);
+            line-height: 1;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            opacity: 0.85;
+        }
+
+        .image-slide .slide-inner {
+            max-width: none;
+            height: 100%;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .image-slide img {
+            max-width: 100%;
+            max-height: 80vh;
+            object-fit: contain;
+            border-radius: 12px;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+        }
+
+        .image-caption {
+            font-size: 0.95rem;
+            color: var(--text-dim);
+            margin-top: 16px;
+        }
+
+        .columns {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 18px;
+            margin-top: 8px;
+        }
+
+        .col {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 22px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .col-num {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            color: var(--accent-2);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .col h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .col p {
+            color: var(--text-soft);
+            font-size: 0.98rem;
+        }
+
+        .quote {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(1.5rem, 3vw, 2.4rem);
+            line-height: 1.25;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            max-width: 22ch;
+        }
+
+        .quote-cite {
+            color: var(--text-dim);
+            font-size: 1rem;
+            margin-top: 16px;
+        }
+
+        a.link {
+            color: var(--accent-2);
+            text-decoration: none;
+            border-bottom: 1px dashed rgba(90, 209, 255, 0.4);
+        }
+
+        a.link:hover {
+            border-bottom-style: solid;
+        }
+
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            background: rgba(124, 92, 255, 0.12);
+            border: 1px solid rgba(124, 92, 255, 0.3);
+            color: #cabbff;
+            border-radius: 999px;
+            width: fit-content;
+        }
+
+        /* HUD */
+        .hud {
+            position: fixed;
+            inset: auto 0 0 0;
+            padding: 20px 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 10;
+            pointer-events: none;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .hud-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-size: 13px;
+            color: var(--text-dim);
+            background: rgba(11, 15, 26, 0.6);
+            border: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+            padding: 8px 14px;
+            border-radius: 999px;
+            pointer-events: auto;
+        }
+
+        .hud-info .progress {
+            width: 120px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 999px;
+            overflow: hidden;
+        }
+
+        .hud-info .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent), var(--accent-2));
+            transition: width 0.4s ease;
+        }
+
+        .hud-actions {
+            display: flex;
+            gap: 8px;
+            pointer-events: auto;
+        }
+
+        .hud-btn {
+            background: rgba(11, 15, 26, 0.6);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 10px 14px;
+            border-radius: 999px;
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            transition: background 0.2s, border-color 0.2s, transform 0.2s;
+        }
+
+        .hud-btn:hover {
+            background: rgba(124, 92, 255, 0.18);
+            border-color: rgba(124, 92, 255, 0.4);
+        }
+
+        .hud-btn:active {
+            transform: scale(0.97);
+        }
+
+        .nav-btn {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 48px;
+            height: 48px;
+            display: grid;
+            place-items: center;
+            border: 1px solid var(--border);
+            background: rgba(11, 15, 26, 0.6);
+            color: var(--text);
+            border-radius: 50%;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            font-size: 20px;
+            transition: background 0.2s, border-color 0.2s, transform 0.2s;
+            z-index: 10;
+        }
+
+        .nav-btn:hover {
+            background: rgba(124, 92, 255, 0.18);
+            border-color: rgba(124, 92, 255, 0.4);
+        }
+
+        .nav-btn.prev {
+            left: 24px;
+        }
+
+        .nav-btn.next {
+            right: 24px;
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .help {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            font-size: 12px;
+            color: var(--text-dim);
+            font-family: 'Space Grotesk', sans-serif;
+            background: rgba(11, 15, 26, 0.6);
+            border: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+            padding: 8px 14px;
+            border-radius: 999px;
+            z-index: 10;
+        }
+
+        .brand-tag {
+            position: fixed;
+            top: 24px;
+            left: 24px;
+            font-size: 13px;
+            color: var(--text-soft);
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 10;
+        }
+
+        .brand-tag .mark {
+            width: 22px;
+            height: 22px;
+            border-radius: 6px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            display: grid;
+            place-items: center;
+            font-size: 12px;
+            color: #0b0f1a;
+            box-shadow: 0 4px 14px var(--accent-glow);
+        }
+
+        .cta-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: var(--accent-2);
+            font-weight: 600;
+            font-size: 1rem;
+            padding: 10px 16px;
+            border: 1px solid rgba(90, 209, 255, 0.35);
+            background: rgba(90, 209, 255, 0.06);
+            border-radius: 10px;
+            margin-top: 8px;
+            width: fit-content;
+        }
+
+        .cta-link:hover {
+            background: rgba(90, 209, 255, 0.14);
+        }
+
+        @media (max-width: 700px) {
+            .slide {
+                padding: 64px 24px 100px;
+            }
+
+            .help {
+                display: none;
+            }
+
+            .nav-btn.prev {
+                left: 8px;
+            }
+
+            .nav-btn.next {
+                right: 8px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <a class="brand-tag" href="./index.html" title="Volver al inicio">
+        <span class="mark">◆</span>
+        <span>Desmitificando la IA</span>
+    </a>
+    <div class="help">← → · espacio · F pantalla completa</div>
+
+    <div class="deck-wrapper">
+        <div class="deck" id="deck">
+
+            <!-- Slide 1: Cover -->
+            <section class="slide">
+                <div class="slide-inner">
+                    <span class="eyebrow"><span class="dot"></span>Material de presentación</span>
+                    <h1 class="title">Desmitificando la <span class="grad">Inteligencia Artificial</span></h1>
+                    <h3 class="sub">Bases tecnológicas y enfoques reales</h3>
+                    <p class="lede">Despejar el "humo" mediático y entender la tecnología desde su arquitectura y
+                        funcionamiento real.</p>
+                </div>
+            </section>
+
+            <!-- Slide 2: Sección 1 -->
+            <section class="slide">
+                <div class="slide-inner">
+                    <span class="pill">Parte 1</span>
+                    <div class="section-num">01</div>
+                    <h2 class="heading">Las 5 capas de la IA</h2>
+                    <p class="lede">Una estructura de capas dependientes. Si falta una pieza, el sistema deja de
+                        existir.</p>
+                </div>
+            </section>
+
+            <!-- Slide 3: Imagen ia-5-layer -->
+            <section class="slide image-slide">
+                <div class="slide-inner">
+                    <img src="img/ia-5-layer.jpg" alt="5 capas de la IA - vista general">
+                </div>
+            </section>
+
+            <!-- Slide 4: Imagen ia-layers -->
+            <section class="slide image-slide">
+                <div class="slide-inner">
+                    <img src="img/ia-layers.png" alt="Capas de la IA - diagrama">
+                </div>
+            </section>
+
+            <!-- Slide 5: Las 5 capas -->
+            <section class="slide">
+                <div class="slide-inner">
+                    <span class="pill">5 capas</span>
+                    <h2 class="heading">De la interfaz a la energía</h2>
+                    <ul class="bullets">
+                        <li><span><strong>Capa 1 · Aplicación.</strong> La interfaz final: ChatGPT, Claude, Gemini.</span></li>
+                        <li><span><strong>Capa 2 · Modelo.</strong> El núcleo: archivo de bytes con conocimiento estadístico.</span></li>
+                        <li><span><strong>Capa 3 · Arquitectura.</strong> Redes neuronales tipo Transformer.</span></li>
+                        <li><span><strong>Capa 4 · Chips.</strong> GPUs de Nvidia, TPUs de Google.</span></li>
+                        <li><span><strong>Capa 5 · Energía.</strong> Electricidad masiva y refrigeración.</span></li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Slide 6: Imagen 5layers-real -->
+            <section class="slide image-slide">
+                <div class="slide-inner">
+                    <img src="img/5layers-real.jpg" alt="Las 5 capas en la realidad">
+                </div>
+            </section>
+
+            <!-- Slide 7: Qué tenés que saber -->
+            <section class="slide">
+                <div class="slide-inner">
+                    <span class="pill">Conceptos clave</span>
+                    <h2 class="heading">Qué tenés que saber de las capas</h2>
+                    <ul class="bullets">
+                        <li><span><strong>Entrenamiento vs inferencia.</strong> Entrenar es construir el modelo. Inferir es usarlo.</span></li>
+                        <li><span><strong>ChatGPT no es el modelo.</strong> Es la aplicación. El modelo es GPT-4 (capa 2).</span></li>
+                        <li><span><strong>Costo físico real.</strong> La IA no es inmaterial: consume energía y refrigeración masiva.</span></li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Slide 8: Sección 2 -->
+            <section class="slide">
+                <div class="slide-inner">
+                    <span class="pill">Parte 2</span>
+                    <div class="section-num">02</div>
+                    <h2 class="heading">Los tres trenes</h2>
+                    <p class="lede">Tres enfoques posibles para abordar la IA. No hace falta subirse a todos.</p>
+                </div>
+            </section>
+
+            <!-- Slide 9: Tres trenes en columnas -->
+            <section class="slide">
+                <div class="slide-inner">
+                    <h2 class="heading">¿Qué tren tomás?</h2>
+                    <div class="columns">
+                        <div class="col">
+                            <span class="col-num">Tren 01</span>
+                            <h4>🔬 Científico</h4>
+                            <p>Producir IA. Matemática y ciencia de datos. Diseñar arquitecturas y entrenar modelos en
+                                supercomputadoras.</p>
+                        </div>
+                        <div class="col">
+                            <span class="col-num">Tren 02</span>
+                            <h4>⚙️ Técnico</h4>
+                            <p>Integrar IA. Conectar modelos existentes con plataformas usando APIs. Para
+                                desarrolladores.</p>
+                        </div>
+                        <div class="col">
+                            <span class="col-num">Tren 03</span>
+                            <h4>🛠️ Práctico</h4>
+                            <p>Usar IA. Asistencia personal y profesional, tutor de estudio, agentes autónomos sin
+                                programar.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 10: Sección 3 -->
+            <section class="slide">
+                <div class="slide-inner">
+                    <span class="pill">Parte 3</span>
+                    <div class="section-num">03</div>
+                    <h2 class="heading">El modelo como objeto físico</h2>
+                    <p class="lede">No es magia: es un archivo informático lleno de números y relaciones
+                        estadísticas.</p>
+                </div>
+            </section>
+
+            <!-- Slide 11: Portabilidad y escala -->
+            <section class="slide">
+                <div class="slide-inner">
+                    <span class="pill">Portabilidad y escala</span>
+                    <h2 class="heading">Modelos chiquitos y modelos gigantes</h2>
+                    <ul class="bullets">
+                        <li><span><strong>Locales:</strong> Gemma (200 MB), Qwen (700 MB). Corren en una PC sin internet.</span></li>
+                        <li><span><strong>Comerciales:</strong> ChatGPT pesa terabytes y necesita centros de datos industriales.</span></li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Slide 12: LM Studio -->
+            <section class="slide">
+                <div class="slide-inner">
+                    <span class="pill">Herramienta</span>
+                    <h2 class="heading">LM Studio: ejecutar IA local</h2>
+                    <ul class="bullets">
+                        <li><span>Gratis para uso personal y profesional, sin Wi-Fi, privacidad total.</span></li>
+                        <li><span><strong>Modelos:</strong> Qwen, DeepSeek, Gemma. Open source o abiertos.</span></li>
+                        <li><span><strong>Límites:</strong> tu RAM y GPU son el techo.</span></li>
+                        <li><span><strong>Costo:</strong> nadie te factura por token, solo la electricidad de tu PC.</span></li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Slide 13: Sección 4 -->
+            <section class="slide">
+                <div class="slide-inner">
+                    <span class="pill">Parte 4</span>
+                    <div class="section-num">04</div>
+                    <h2 class="heading">Inferencia y tokens</h2>
+                    <p class="lede">Texto predictivo a escala monumental. La IA no lee letras: procesa fragmentos como
+                        números.</p>
+                </div>
+            </section>
+
+            <!-- Slide 14: Imagen tokensizes -->
+            <section class="slide image-slide">
+                <div class="slide-inner">
+                    <img src="img/tokensizes.png" alt="Tamaños de tokens">
+                </div>
+            </section>
+
+            <!-- Slide 15: Tokenizador -->
+            <section class="slide">
+                <div class="slide-inner">
+                    <span class="pill">Herramienta</span>
+                    <h2 class="heading">El tokenizador</h2>
+                    <p class="lede">De lenguaje a datos. Mostrá cómo se rompe el texto en unidades mínimas.</p>
+                    <ul class="bullets">
+                        <li><span>"Maximiliano" se divide en varios tokens.</span></li>
+                        <li><span>El español consume más tokens que el inglés.</span></li>
+                        <li><span><strong>El token es la unidad de facturación real.</strong></span></li>
+                    </ul>
+                    <a class="cta-link" href="https://platform.openai.com/tokenizer" target="_blank" rel="noopener">Abrir
+                        tokenizador →</a>
+                </div>
+            </section>
+
+            <!-- Slide 16: Transformer Explainer -->
+            <section class="slide">
+                <div class="slide-inner">
+                    <span class="pill">Herramienta</span>
+                    <h2 class="heading">Transformer Explainer</h2>
+                    <p class="lede">El laboratorio estadístico para ver cómo decide el modelo qué token va después.</p>
+                    <ul class="bullets">
+                        <li><span><strong>Líneas de atención:</strong> el peso que da a palabras previas.</span></li>
+                        <li><span><strong>Origen de la alucinación:</strong> elegir opciones de baja probabilidad.</span></li>
+                    </ul>
+                    <a class="cta-link" href="https://poloclub.github.io/transformer-explainer/" target="_blank"
+                        rel="noopener">Abrir Transformer Explainer →</a>
+                </div>
+            </section>
+
+            <!-- Slide 17: Sección 5 -->
+            <section class="slide">
+                <div class="slide-inner">
+                    <span class="pill">Parte 5</span>
+                    <div class="section-num">05</div>
+                    <h2 class="heading">Componentes de la interacción</h2>
+                    <p class="lede">¿Cómo simula memoria un archivo estático? Con el diseño de la aplicación.</p>
+                </div>
+            </section>
+
+            <!-- Slide 18: System prompt e historial -->
+            <section class="slide">
+                <div class="slide-inner">
+                    <span class="pill">Reglas del juego</span>
+                    <h2 class="heading">System prompt e historial</h2>
+                    <ul class="bullets">
+                        <li><span><strong>System prompt:</strong> instrucción base que define comportamiento. Tiene
+                                prioridad sobre el usuario.</span></li>
+                        <li><span><strong>Historial:</strong> la app reenvía todo el chat previo en cada mensaje para
+                                simular coherencia.</span></li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Slide 19: Contexto y memoria -->
+            <section class="slide">
+                <div class="slide-inner">
+                    <span class="pill">Memoria</span>
+                    <h2 class="heading">Contexto, memoria, conectores</h2>
+                    <ul class="bullets">
+                        <li><span><strong>Ventana de contexto:</strong> límite de tokens que procesa a la vez. No es
+                                infinita.</span></li>
+                        <li><span><strong>Memoria:</strong> persistencia de preferencias entre sesiones.</span></li>
+                        <li><span><strong>Conectores:</strong> plugins que acceden a APIs o datos en tiempo real.</span></li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Slide 20: Sección 6 -->
+            <section class="slide">
+                <div class="slide-inner">
+                    <span class="pill">Parte 6</span>
+                    <div class="section-num">06</div>
+                    <h2 class="heading">Caja negra y alucinaciones</h2>
+                    <p class="lede">Ni los ingenieros saben con exactitud por qué genera una respuesta específica.</p>
+                </div>
+            </section>
+
+            <!-- Slide 21: Imagen cajanegragpt -->
+            <section class="slide image-slide">
+                <div class="slide-inner">
+                    <img src="img/cajanegragpt.png" alt="Caja negra de GPT">
+                </div>
+            </section>
+
+            <!-- Slide 22: Por qué mienten -->
+            <section class="slide">
+                <div class="slide-inner">
+                    <span class="pill">Mecánica</span>
+                    <h2 class="heading">¿Por qué mienten?</h2>
+                    <p class="lede">La <strong>temperatura</strong> hace que el modelo elija a veces caminos
+                        estadísticos menos probables. Ahí nace la <strong>alucinación</strong>: invención con total
+                        seguridad.</p>
+                </div>
+            </section>
+
+            <!-- Slide 23: Criterio humano -->
+            <section class="slide">
+                <div class="slide-inner">
+                    <span class="pill">Lo más importante</span>
+                    <h2 class="heading">Criterio humano e iteración</h2>
+                    <ul class="bullets">
+                        <li><span>Los resultados <strong>nunca son verdad absoluta</strong>.</span></li>
+                        <li><span>Validar con fuentes externas.</span></li>
+                        <li><span><strong>Iterar:</strong> corregir y ajustar prompts para acotar el error
+                                estadístico.</span></li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Slide 24: Sección 7 -->
+            <section class="slide">
+                <div class="slide-inner">
+                    <span class="pill">Cierre</span>
+                    <div class="section-num">07</div>
+                    <h2 class="heading">Panorama global y ventaja competitiva</h2>
+                    <p class="lede">Dónde estamos parados respecto al resto del mundo.</p>
+                </div>
+            </section>
+
+            <!-- Slide 25: Imagen grafico -->
+            <section class="slide image-slide">
+                <div class="slide-inner">
+                    <img src="img/grafico.jpg" alt="Adopción global de IA">
+                </div>
+            </section>
+
+            <!-- Slide 26: Análisis -->
+            <section class="slide">
+                <div class="slide-inner">
+                    <span class="pill">Realidad de mercado</span>
+                    <h2 class="heading">Humo vs uso real</h2>
+                    <ul class="bullets">
+                        <li><span><strong>+800 millones</strong> de usuarios semanales solo en OpenAI.</span></li>
+                        <li><span>La mayoría se queda en la superficie: chatbots gratuitos, uso recreativo.</span></li>
+                        <li><span><strong>Tu ventaja:</strong> entender modelo, inferencia y contexto te saca de ese
+                                grupo.</span></li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Slide 27: Conclusión -->
+            <section class="slide">
+                <div class="slide-inner">
+                    <span class="pill">Conclusión</span>
+                    <h2 class="heading">Punto de inflexión histórico</h2>
+                    <p class="lede">Interactuamos con un <strong>archivo matemático complejo</strong>, no con una
+                        entidad consciente. Eso nos da el poder de supervisar, corregir y amplificar resultados con
+                        criterio humano.</p>
+                </div>
+            </section>
+
+            <!-- Slide 28: Cita de cierre -->
+            <section class="slide">
+                <div class="slide-inner" style="align-items: center; text-align: center;">
+                    <span class="pill">Frase de cierre</span>
+                    <p class="quote">"La IA no reemplazará a los humanos, pero los humanos que usen IA reemplazarán a
+                        los que no lo hagan."</p>
+                    <p class="quote-cite">— Karim Lakhani · profesor de Harvard</p>
+                </div>
+            </section>
+
+            <!-- Slide 29: Capa 6 -->
+            <section class="slide">
+                <div class="slide-inner">
+                    <span class="pill">Bonus</span>
+                    <div class="section-num">06</div>
+                    <h2 class="heading">La capa oculta · contexto mundial</h2>
+                    <p class="lede">Más allá de los bits, los archivos y las apps, hay una dimensión física que rara vez
+                        se menciona: infraestructuras masivas que consumen recursos planetarios.</p>
+                </div>
+            </section>
+
+            <!-- Slide 30: Imagen cierre -->
+            <section class="slide image-slide">
+                <div class="slide-inner">
+                    <img src="img/imagencierre.png" alt="Capa 6 - contexto mundial">
+                </div>
+            </section>
+
+            <!-- Slide 31: Gracias -->
+            <section class="slide">
+                <div class="slide-inner" style="align-items: center; text-align: center;">
+                    <span class="eyebrow"><span class="dot"></span>Fin</span>
+                    <h1 class="title">Gracias <span class="grad">·</span> a usar IA con criterio</h1>
+                    <a class="cta-link" href="./index.html">Volver al inicio →</a>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <button class="nav-btn prev" id="prev" aria-label="Anterior">←</button>
+    <button class="nav-btn next" id="next" aria-label="Siguiente">→</button>
+
+    <div class="hud">
+        <div class="hud-info">
+            <span id="counter">01 / 31</span>
+            <div class="progress">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+        </div>
+        <div class="hud-actions">
+            <button class="hud-btn" id="fullscreenBtn">Pantalla completa</button>
+        </div>
+    </div>
+
+    <script>
+        const deck = document.getElementById('deck');
+        const slides = document.querySelectorAll('.slide');
+        const prevBtn = document.getElementById('prev');
+        const nextBtn = document.getElementById('next');
+        const counter = document.getElementById('counter');
+        const progressBar = document.getElementById('progressBar');
+        const fullscreenBtn = document.getElementById('fullscreenBtn');
+
+        let current = 0;
+        const total = slides.length;
+
+        const pad = n => String(n).padStart(2, '0');
+
+        function render() {
+            deck.style.transform = `translateX(-${current * 100}%)`;
+            counter.textContent = `${pad(current + 1)} / ${pad(total)}`;
+            progressBar.style.width = `${((current + 1) / total) * 100}%`;
+            prevBtn.disabled = current === 0;
+            nextBtn.disabled = current === total - 1;
+            const url = new URL(window.location);
+            url.hash = `s${current + 1}`;
+            history.replaceState(null, '', url);
+        }
+
+        function go(idx) {
+            current = Math.max(0, Math.min(total - 1, idx));
+            render();
+        }
+
+        prevBtn.addEventListener('click', () => go(current - 1));
+        nextBtn.addEventListener('click', () => go(current + 1));
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === 'ArrowDown') {
+                e.preventDefault();
+                go(current + 1);
+            } else if (e.key === 'ArrowLeft' || e.key === 'PageUp' || e.key === 'ArrowUp') {
+                e.preventDefault();
+                go(current - 1);
+            } else if (e.key === ' ') {
+                e.preventDefault();
+                go(current + (e.shiftKey ? -1 : 1));
+            } else if (e.key === 'Home') {
+                e.preventDefault();
+                go(0);
+            } else if (e.key === 'End') {
+                e.preventDefault();
+                go(total - 1);
+            } else if (e.key === 'f' || e.key === 'F') {
+                toggleFullscreen();
+            }
+        });
+
+        let touchStartX = 0;
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].clientX;
+        }, { passive: true });
+        document.addEventListener('touchend', (e) => {
+            const dx = e.changedTouches[0].clientX - touchStartX;
+            if (Math.abs(dx) > 60) go(current + (dx < 0 ? 1 : -1));
+        }, { passive: true });
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen?.();
+            } else {
+                document.exitFullscreen?.();
+            }
+        }
+
+        fullscreenBtn.addEventListener('click', toggleFullscreen);
+
+        const hash = window.location.hash.match(/^#s(\d+)$/);
+        if (hash) {
+            current = Math.max(0, Math.min(total - 1, parseInt(hash[1], 10) - 1));
+        }
+
+        render();
+    </script>
+</body>
+
+</html>

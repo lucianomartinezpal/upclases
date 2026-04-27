@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Desmitificando la IA</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+  <style>
+    figure {
+      margin: 1.5rem 0;
+      text-align: center;
+    }
+
+    figure img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    }
+
+    figure figcaption {
+      font-size: 0.85rem;
+      color: #777;
+      margin-top: 0.6rem;
+      font-style: italic;
+    }
+
+    blockquote {
+      border-left: 4px solid #7c5cff;
+      padding: 0.8rem 1rem;
+      background: rgba(124, 92, 255, 0.06);
+      margin: 1.5rem 0;
+      border-radius: 0 8px 8px 0;
+    }
+
+    blockquote p {
+      margin: 0;
+    }
+
+    blockquote cite {
+      display: block;
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+      color: #666;
+    }
+  </style>
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__left">
+    <div class="stackedit__toc">
+
+      <ul>
+        <li><a href="#desmitificando-la-ia">Desmitificando la IA</a></li>
+        <li><a href="#índice">🗂️ Índice</a></li>
+        <li><a href="#5-capas-de-la-ia">🧱 1. Las 5 capas de la IA</a>
+          <ul>
+            <li><a href="#qué-tenés-que-saber">🔍 Qué tenés que saber</a></li>
+          </ul>
+        </li>
+        <li><a href="#tres-trenes">🚂 2. Los tres trenes</a></li>
+        <li><a href="#modelo-objeto-fisico">💾 3. El modelo como objeto físico</a>
+          <ul>
+            <li><a href="#lm-studio">🖥️ LM Studio</a></li>
+          </ul>
+        </li>
+        <li><a href="#inferencia-y-tokens">🔤 4. Inferencia y tokens</a></li>
+        <li><a href="#componentes-interaccion">🧩 5. Componentes de la interacción</a></li>
+        <li><a href="#caja-negra">🎲 6. Caja negra y alucinaciones</a></li>
+        <li><a href="#cierre">🌍 7. Panorama global y ventaja</a></li>
+        <li><a href="#sexto-layer">👁️ Capa oculta</a></li>
+      </ul>
+
+    </div>
+  </div>
+  <div class="stackedit__right">
+    <div class="stackedit__html">
+      <h1 id="desmitificando-la-ia">Desmitificando la Inteligencia Artificial</h1>
+      <p><strong>Bases tecnológicas y enfoques reales.</strong> Material organizado para despejar el "humo" mediático
+        —el marketing engañoso y las noticias exageradas— y comprender la tecnología desde su arquitectura y
+        funcionamiento real.</p>
+
+      <h2 id="índice">🗂️ Índice</h2>
+      <ol>
+        <li>🧱 Las 5 capas de la IA</li>
+        <li>🚂 Los tres trenes</li>
+        <li>💾 El modelo como objeto físico</li>
+        <li>🔤 Inferencia y tokens</li>
+        <li>🧩 Componentes de la interacción</li>
+        <li>🎲 Caja negra y alucinaciones</li>
+        <li>🌍 Panorama global y ventaja</li>
+      </ol>
+
+      <h2 id="5-capas-de-la-ia">🧱 1. Las 5 capas de la IA</h2>
+      <p>Para entender la magnitud de esta tecnología, hay que visualizarla como una <strong>estructura de capas
+          dependientes</strong>. Si falta una pieza, el sistema completo deja de existir.</p>
+
+      <figure>
+        <img src="img/ia-5-layer.jpg" alt="5 capas de la IA - vista general">
+      </figure>
+
+      <figure>
+        <img src="img/ia-layers.png" alt="Capas de la IA - diagrama">
+      </figure>
+
+      <ul>
+        <li><strong>Capa 1 · Aplicación:</strong> la interfaz final (ChatGPT, Claude, Gemini). Funciona como una
+          "carcasa" que gestiona historial y preferencias.</li>
+        <li><strong>Capa 2 · Modelo:</strong> el núcleo del sistema, un archivo informático de bytes con conocimiento
+          estadístico. Acá ocurre la <em>inferencia</em>.</li>
+        <li><strong>Capa 3 · Arquitectura:</strong> el diseño lógico y las redes neuronales (como Transformer) que
+          permiten al modelo relacionar conceptos matemáticamente.</li>
+        <li><strong>Capa 4 · Chips (Hardware):</strong> procesadores físicos (GPUs de Nvidia, TPUs de Google) necesarios
+          para cálculos masivos en tiempos razonables.</li>
+        <li><strong>Capa 5 · Energía:</strong> la base. La IA requiere cantidades masivas de electricidad para
+          alimentar los chips y refrigeración para disipar el calor generado.</li>
+      </ul>
+
+      <figure>
+        <img src="img/5layers-real.jpg" alt="Las 5 capas en la realidad">
+      </figure>
+
+      <h3 id="qué-tenés-que-saber">🔍 Qué tenés que saber de las capas</h3>
+      <ul>
+        <li><strong>Entrenamiento vs inferencia:</strong> el entrenamiento ocurre entre la arquitectura y los chips, en
+          centros de datos. La inferencia sucede cuando la aplicación consulta al modelo ya entrenado.</li>
+        <li><strong>La identidad de ChatGPT:</strong> ChatGPT es la <em>aplicación</em> (capa 1). El archivo que procesa
+          tus palabras es el <em>modelo</em> (capa 2), por ejemplo GPT-4.</li>
+        <li><strong>El costo físico:</strong> la IA no es inmaterial. El requerimiento energético es extremo por el
+          estrés físico de calcular probabilidades masivas en milisegundos.</li>
+      </ul>
+
+      <h2 id="tres-trenes">🚂 2. Cómo abordamos el trabajo con la IA</h2>
+      <p>No hay un solo camino. Existen al menos tres enfoques principales para evitar el agobio de intentar aprender
+        herramientas que no necesitás.</p>
+
+      <h3 id="tren-cientifico">🔬 El tren científico (producir IA)</h3>
+      <p>Área de la matemática pura y la ciencia de datos. Diseña arquitecturas desde cero y entrena modelos en
+        supercomputadoras. Dirigido a perfiles académicos pesados.</p>
+
+      <h3 id="tren-tecnico">⚙️ El tren técnico (integrar IA)</h3>
+      <p>Área del desarrollo de software. Conecta modelos existentes con otras plataformas usando APIs. Ideal para
+        desarrolladores.</p>
+
+      <h3 id="tren-practico">🛠️ El tren práctico (usar IA)</h3>
+      <p>El enfoque de este material. Aprovechar la IA como herramienta de asistencia personal y profesional: tutor de
+        estudio, procesador de documentos extensos o uso de agentes autónomos sin programar.</p>
+
+      <h2 id="modelo-objeto-fisico">💾 3. El modelo como objeto físico</h2>
+      <p>Lejos de ser "magia negra", un modelo es un <strong>archivo informático</strong> (un conjunto de bytes) lleno
+        de números y relaciones estadísticas.</p>
+
+      <h3 id="portabilidad-y-escala">📦 Portabilidad y escala</h3>
+      <ul>
+        <li><strong>Modelos locales:</strong> archivos minúsculos como <em>Gemma</em> (200 MB) o <em>Qwen</em> (700 MB)
+          que pueden ejecutarse en un teléfono o PC sin internet.</li>
+        <li><strong>Modelos comerciales:</strong> motores como los de ChatGPT pesan terabytes y requieren centros de
+          datos industriales.</li>
+      </ul>
+
+      <h3 id="lm-studio">🖥️ La interfaz de ejecución: LM Studio</h3>
+      <p>Como el modelo es un archivo estático, necesitás un software que lo cargue en RAM y gestione la conversación.
+        <strong>LM Studio</strong> es ideal para eso: gratuito para uso personal y profesional, no requiere Wi-Fi y
+        garantiza privacidad total.</p>
+      <ul>
+        <li><strong>Modelos disponibles:</strong> Qwen (licencia Apache 2.0), DeepSeek (licencia MIT) o Gemma (Google).
+          Son de código abierto o modelos abiertos.</li>
+        <li><strong>Límites de hardware:</strong> tu RAM y GPU son el techo. Modelos de 70B de parámetros no van a
+          funcionar si no tenés el hardware adecuado.</li>
+        <li><strong>Costo energético:</strong> en ejecución local, nadie te factura por <em>token</em>. Podés hacer
+          consultas infinitas y el único costo es la electricidad de tu PC.</li>
+      </ul>
+
+      <h2 id="inferencia-y-tokens">🔤 4. El mecanismo interno: inferencia y tokens</h2>
+      <p>Los modelos (LLMs) funcionan de manera similar al texto predictivo, pero a escala monumental. La IA no lee
+        letras: procesa <strong>tokens</strong> (fragmentos de palabras) representados como números. Mediante la
+        <strong>inferencia</strong>, el modelo calcula la probabilidad de qué token debería seguir al anterior.</p>
+
+      <figure>
+        <img src="img/tokensizes.png" alt="Tamaños de tokens">
+      </figure>
+
+      <h3 id="tokenizador">🧪 El tokenizador (de lenguaje a datos)</h3>
+      <p>🔗 <a href="https://platform.openai.com/tokenizer" target="_blank" rel="noopener">Tokenizador de OpenAI</a></p>
+      <ul>
+        <li>Muestra cómo el texto se rompe en unidades mínimas.</li>
+        <li>Revela que nombres como "Maximiliano" se dividen en múltiples tokens y que el español consume más tokens
+          que el inglés.</li>
+        <li><strong>Economía:</strong> el token es la unidad de facturación real en los servicios comerciales.</li>
+      </ul>
+
+      <h3 id="transformer-explainer">🔬 Transformer Explainer (laboratorio estadístico)</h3>
+      <p>🔗 <a href="https://poloclub.github.io/transformer-explainer/" target="_blank" rel="noopener">Transformer
+          Explainer</a></p>
+      <ul>
+        <li>Muestra las <strong>líneas de atención</strong>: el peso o importancia que el sistema le da a palabras
+          previas para decidir cuál sigue.</li>
+        <li>Permite observar el origen de la <strong>alucinación</strong> cuando el sistema elige opciones de baja
+          probabilidad.</li>
+      </ul>
+
+      <h2 id="componentes-interaccion">🧩 5. Componentes y límites de la interacción</h2>
+      <p>¿Cómo simula memoria un archivo estático? Mediante el diseño de la aplicación.</p>
+
+      <h3 id="system-prompt">📜 System Prompt e historial</h3>
+      <ul>
+        <li><strong>System Prompt:</strong> instrucción base que define comportamiento y reglas. Tiene prioridad sobre
+          el usuario.</li>
+        <li><strong>Historial de chat:</strong> la aplicación reenvía todo el historial previo en cada mensaje para
+          simular coherencia.</li>
+      </ul>
+
+      <h3 id="contexto-y-memoria">🧠 Contexto y memoria</h3>
+      <ul>
+        <li><strong>Ventana de contexto:</strong> límite máximo de tokens que el modelo procesa a la vez. No es
+          infinita: superarla hace que el sistema descarte datos previos.</li>
+        <li><strong>Memoria (persistencia):</strong> capacidad de recordar preferencias entre diferentes sesiones de
+          chat.</li>
+        <li><strong>Conectores:</strong> plugins o extensiones que permiten al modelo acceder a APIs o datos en tiempo
+          real.</li>
+      </ul>
+
+      <h2 id="caja-negra">🎲 6. Modelo vs aplicación: alucinaciones y caja negra</h2>
+      <p>El modelo es una <strong>caja negra</strong>: ni sus ingenieros saben con exactitud por qué genera una
+        respuesta específica.</p>
+
+      <figure>
+        <img src="img/cajanegragpt.png" alt="Caja negra de GPT">
+      </figure>
+
+      <h3 id="por-que-mienten">🤥 Por qué mienten</h3>
+      <p>Para evitar respuestas robóticas se usa la <strong>temperatura</strong>, que permite al modelo elegir caminos
+        estadísticos menos probables. Acá nace la <strong>alucinación</strong>: la IA inventa datos con total
+        seguridad.</p>
+
+      <h3 id="criterio-humano">🧭 Criterio humano e iteración</h3>
+      <p>Los resultados nunca son verdad absoluta. Es obligatorio validar con fuentes externas e <strong>iterar</strong>:
+        corregir a la IA y ajustar prompts para acotar el margen de error estadístico.</p>
+
+      <h2 id="cierre">🌍 7. Panorama global y ventaja competitiva</h2>
+      <p>Para finalizar, dónde estamos parados respecto al resto del mundo. El siguiente gráfico da una referencia
+        aproximada de la adopción tecnológica actual.</p>
+
+      <figure>
+        <img src="img/grafico.jpg" alt="Adopción global de IA">
+      </figure>
+
+      <h3 id="analisis-grafico">📊 Análisis y realidad actual</h3>
+      <p>Aunque el gráfico sugiere que un porcentaje masivo de la población mundial todavía no interactuó con IA (área
+        gris), los datos más recientes indican que la adopción es mucho más acelerada.</p>
+      <ul>
+        <li><strong>Realidad de mercado:</strong> solo OpenAI reporta más de 800 millones de usuarios activos
+          semanales, alrededor del 10% de la población global.</li>
+        <li><strong>"Humo" vs uso real:</strong> la mayoría (área verde) se queda en la superficie, usando chatbots
+          gratuitos de forma recreativa o básica.</li>
+        <li><strong>Tu ventaja:</strong> al entender qué es un modelo físicamente, cómo funciona la inferencia y cómo
+          gestionar la ventana de contexto, dejás de ser un usuario recreativo y pasás al grupo que utiliza la IA con
+          criterio técnico y estratégico.</li>
+      </ul>
+
+      <h3 id="conclusion-final">🏁 Conclusión final</h3>
+      <p>Estamos viviendo un <strong>punto de inflexión histórico</strong>. Los sistemas de IA están redefiniendo
+        sectores completos y su evolución es exponencial.</p>
+      <p>Comprender que interactuamos con un <strong>archivo matemático complejo</strong> y no con una entidad
+        consciente nos da el poder de supervisar, corregir y amplificar resultados mediante el <strong>criterio
+          humano</strong>.</p>
+
+      <blockquote>
+        <p>"La IA no reemplazará a los humanos, pero los humanos que usen IA reemplazarán a los que no lo hagan."</p>
+        <cite>— Karim Lakhani, profesor de Harvard</cite>
+      </blockquote>
+
+      <details id="sexto-layer">
+        <summary><strong>👁️ Revelar la sexta capa oculta</strong></summary>
+        <div>
+          <h2 id="capa-6">Capa 6 · El contexto mundial</h2>
+          <p>Más allá de los bits, los archivos y las aplicaciones, existe una dimensión física que rara vez se
+            menciona. La inteligencia artificial no habita en un espacio abstracto: reside en infraestructuras masivas
+            que consumen recursos planetarios de forma tangible.</p>
+
+          <figure>
+            <img src="img/imagencierre.png" alt="Capa 6 - contexto mundial">
+          </figure>
+        </div>
+      </details>
+
+    </div>
+  </div>
+</body>
+
+</html>

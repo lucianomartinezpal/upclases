@@ -4,73 +4,514 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CyC3</title>
+    <title>Introducción a la IA · Materiales y recursos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+        rel="stylesheet">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #F9F8F6;
-            color: #333;
+        :root {
+            --bg: #0b0f1a;
+            --bg-soft: #111726;
+            --surface: rgba(255, 255, 255, 0.04);
+            --surface-strong: rgba(255, 255, 255, 0.08);
+            --border: rgba(255, 255, 255, 0.08);
+            --border-strong: rgba(255, 255, 255, 0.18);
+            --text: #e8ecf3;
+            --text-soft: #a8b0c2;
+            --text-dim: #6b7388;
+            --accent: #7c5cff;
+            --accent-2: #5ad1ff;
+            --accent-glow: rgba(124, 92, 255, 0.45);
+            --radius: 16px;
+            --radius-sm: 10px;
+        }
+
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.5;
+            overflow: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: -20% -10% auto auto;
+            width: 60vmax;
+            height: 60vmax;
+            background: radial-gradient(circle at center, var(--accent-glow), transparent 60%);
+            filter: blur(60px);
+            opacity: 0.7;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            inset: auto auto -20% -10%;
+            width: 50vmax;
+            height: 50vmax;
+            background: radial-gradient(circle at center, rgba(90, 209, 255, 0.25), transparent 60%);
+            filter: blur(60px);
+            opacity: 0.6;
+            z-index: 0;
+            pointer-events: none;
         }
 
         .container {
-            max-width: 800px;
-            margin: auto;
-            padding: 20px;
-            text-align: center;
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 1280px;
+            height: 100vh;
+            margin: 0 auto;
+            padding: 28px 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+        }
+
+        .brand-mark {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            display: grid;
+            place-items: center;
+            font-size: 18px;
+            box-shadow: 0 8px 24px var(--accent-glow);
+        }
+
+        .nav-tag {
+            font-size: 13px;
+            color: var(--text-soft);
+            padding: 6px 12px;
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            background: var(--surface);
+        }
+
+        .hero {
+            display: grid;
+            gap: 14px;
+            margin-bottom: 0;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-soft);
+            padding: 8px 14px;
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            background: var(--surface);
+            width: fit-content;
+        }
+
+        .eyebrow .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent-2);
+            box-shadow: 0 0 12px var(--accent-2);
         }
 
         h1 {
-            color: #A17A74;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(1.8rem, 3.6vw, 3rem);
+            font-weight: 700;
+            line-height: 1.05;
+            letter-spacing: -0.02em;
+            max-width: 22ch;
         }
 
-        h2 {
-            color: #BCB4B9;
+        h1 .grad {
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
 
-        .class-list {
-            list-style-type: none;
-            padding: 0;
+        .lede {
+            font-size: 0.98rem;
+            color: var(--text-soft);
+            max-width: 70ch;
         }
 
-        .class-item {
-            margin: 10px 0;
+        .meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 8px;
         }
 
-        .class-link {
-            display: inline-block;
-            padding: 10px 20px;
-            border: 2px solid #A17A74;
-            border-radius: 5px;
+        .meta span {
+            font-size: 13px;
+            color: var(--text-dim);
+            padding: 6px 12px;
+            border: 1px dashed var(--border);
+            border-radius: 999px;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 16px;
+            margin: 0;
+        }
+
+        .section-title h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: var(--text-soft);
+        }
+
+        .section-title .hint {
+            font-size: 13px;
+            color: var(--text-dim);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 18px;
+        }
+
+        .card {
+            grid-column: span 6;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 20px;
+            border-radius: var(--radius);
+            background: var(--surface);
+            border: 1px solid var(--border);
             text-decoration: none;
-            color: #A17A74;
-            background-color: #F5ECE8;
-            transition: background-color 0.3s ease;
+            color: inherit;
+            overflow: hidden;
+            transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
         }
 
-        .class-link:hover {
-            background-color: #E8D6D3;
+        .card::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            background: linear-gradient(135deg, rgba(124, 92, 255, 0.12), transparent 40%);
+            opacity: 0;
+            transition: opacity 0.25s ease;
+            pointer-events: none;
         }
 
-        .not-published {
-            border: 2px dashed #BCB4B9;
-            color: #BCB4B9;
-            background-color: #F9F8F6;
+        .card:hover {
+            transform: translateY(-3px);
+            border-color: var(--border-strong);
+            background: var(--surface-strong);
+        }
+
+        .card:hover::after {
+            opacity: 1;
+        }
+
+        .card.feature {
+            grid-column: span 6;
+            background: linear-gradient(135deg, rgba(124, 92, 255, 0.18), rgba(90, 209, 255, 0.08));
+            border-color: rgba(124, 92, 255, 0.35);
+        }
+
+        .card.card-compact {
+            grid-column: span 12;
+            padding: 16px 20px;
+            gap: 6px;
+        }
+
+        .card.card-compact h3 {
+            font-size: 1.1rem;
+        }
+
+        .card.card-compact p {
+            font-size: 0.88rem;
+            color: var(--text-dim);
+        }
+
+        .compact-cta {
+            font-size: 12px;
+            color: var(--text-soft);
+        }
+
+        .card-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .card-num {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-dim);
+            letter-spacing: 0.1em;
+        }
+
+        .card-tag {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--accent-2);
+            padding: 4px 10px;
+            border: 1px solid rgba(90, 209, 255, 0.3);
+            border-radius: 999px;
+            background: rgba(90, 209, 255, 0.06);
+        }
+
+        .card h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            line-height: 1.2;
+        }
+
+        .card p {
+            color: var(--text-soft);
+            font-size: 0.9rem;
+        }
+
+        .card-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: auto;
+            padding-top: 8px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 9px 14px;
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            font-weight: 500;
+            text-decoration: none;
+            color: var(--text);
+            background: var(--surface-strong);
+            border: 1px solid var(--border);
+            transition: background 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .btn:hover {
+            background: rgba(124, 92, 255, 0.18);
+            border-color: rgba(124, 92, 255, 0.4);
+        }
+
+        .btn.primary {
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            color: #0b0f1a;
+            border-color: transparent;
+            font-weight: 600;
+        }
+
+        .btn.primary:hover {
+            transform: translateY(-1px);
+        }
+
+        .btn.ghost {
+            background: transparent;
+            color: var(--text-dim);
+            border-color: transparent;
+            font-weight: 400;
+            padding: 9px 6px;
+        }
+
+        .btn.ghost:hover {
+            background: transparent;
+            color: var(--text-soft);
+            border-color: transparent;
+            text-decoration: underline;
+            text-decoration-color: var(--text-dim);
+            text-underline-offset: 4px;
+        }
+
+        .btn .arrow {
+            transition: transform 0.2s ease;
+        }
+
+        .card:hover .btn.primary .arrow,
+        .btn:hover .arrow {
+            transform: translateX(3px);
+        }
+
+        .main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            min-height: 0;
+        }
+
+        footer {
+            margin-top: auto;
+            padding-top: 14px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 12px;
+            font-size: 13px;
+            color: var(--text-dim);
+        }
+
+        @media (max-width: 980px) {
+
+            html,
+            body {
+                height: auto;
+                overflow: auto;
+            }
+
+            .container {
+                height: auto;
+                padding: 28px 20px 56px;
+                gap: 20px;
+            }
+
+            .main {
+                flex: initial;
+            }
+
+            .card,
+            .card.feature {
+                grid-column: span 12;
+            }
+
+            footer {
+                margin-top: 24px;
+            }
         }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <h1>CyC3</h1>
-        <h2>Resumenes y Materiales</h2>
-        <ul class="class-list">
-            <li class="class-item"><a href="01index.html" class="class-link">Clase 01</a></li>
-            <li class="class-item"><a href="tp01-checklist.html" class="class-link">Checklist TP 1</a></li>
-            <li class="class-item"><a href="02index.html" class="class-link">Clases de IA</a></li>
-           
-        </ul>
+        <header class="nav">
+            <div class="brand">
+                <span class="brand-mark">◆</span>
+                <span>Introducción a la IA</span>
+            </div>
+            <span class="nav-tag">Materiales y recursos</span>
+        </header>
+
+        <main class="main">
+            <section class="hero">
+                <span class="eyebrow"><span class="dot"></span>Materiales y recursos</span>
+                <h1>Introducción a la <span class="grad">Inteligencia Artificial</span></h1>
+                <p class="lede">Una recorrida por los conceptos clave: qué es la IA, cómo funciona, cómo se conversa con
+                    ella y cómo usarla con criterio. Material para consultar y volver a usar cuando lo necesites.</p>
+            </section>
+
+            <div class="section-title">
+                <h2>Empezar por acá</h2>
+                <span class="hint">Lo principal para arrancar</span>
+            </div>
+
+            <div class="grid">
+                <article class="card feature">
+                    <div class="card-head">
+                        <span class="card-num">01</span>
+                        <span class="card-tag">Núcleo</span>
+                    </div>
+                    <h3>Conceptos básicos de IA</h3>
+                    <p>Qué es la IA, qué no es, modelo vs aplicación, LLMs, herramientas, uso crítico y un cierre con
+                        ciencia ficción.</p>
+                    <div class="card-actions">
+                        <a class="btn primary" href="./conceptosbasicosIA-slides.html">Abrir slides <span
+                                class="arrow">→</span></a>
+                        <a class="btn ghost" href="./conceptosbasicosIA.html">Ver material en markdown</a>
+                    </div>
+                </article>
+
+                <article class="card feature">
+                    <div class="card-head">
+                        <span class="card-num">02</span>
+                        <span class="card-tag">Bases técnicas</span>
+                    </div>
+                    <h3>Desmitificando la IA: bases tecnológicas y enfoques reales</h3>
+                    <p>Las 5 capas de la IA, los tres trenes, el modelo como objeto físico, tokens, inferencia,
+                        alucinaciones y panorama global.</p>
+                    <div class="card-actions">
+                        <a class="btn primary" href="./desmitificandoIA-slides.html">Abrir slides <span
+                                class="arrow">→</span></a>
+                        <a class="btn ghost" href="./desmitificandoIA.html">Ver material en markdown</a>
+                    </div>
+                </article>
+            </div>
+
+            <!-- Material complementario oculto temporalmente
+            <div class="section-title">
+                <h2>Material complementario</h2>
+                <span class="hint">Lectura opcional</span>
+            </div>
+
+            <div class="grid">
+                <a class="card card-compact" href="./02QueeslaIA.html">
+                    <div class="card-head">
+                        <span class="card-num">A · Contexto</span>
+                        <span class="btn ghost compact-cta">Ver material <span class="arrow">→</span></span>
+                    </div>
+                    <h3>Orígenes de la IA</h3>
+                    <p>Una mirada histórica desde Turing hasta los sistemas actuales para entender de dónde venimos.</p>
+                </a>
+            </div>
+            -->
+        </main>
+
+        <footer>
+            <span>Introducción a la IA · Materiales y recursos</span>
+            <span>Hecho para volver a consultar</span>
+        </footer>
     </div>
 </body>
 
